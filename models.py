@@ -93,41 +93,39 @@ tfidf_logit_pipeline_Mnb = Pipeline([('tfidf', tfidf), ('logit', logit_Mnb)])
 
 #fitting models
 tfidf_logit_pipeline.fit(xTrain, yTrain)
-# tfidf_logit_pipeline_RandomForestClassifier.fit(xTrain, yTrain)
-# tfidf_logit_pipeline_SVC.fit(xTrain, yTrain)
-# tfidf_logit_pipeline_GBoost.fit(xTrain, yTrain)
-# tfidf_logit_pipeline_Mnb.fit(xTrain, yTrain)
+tfidf_logit_pipeline_RandomForestClassifier.fit(xTrain, yTrain)
+tfidf_logit_pipeline_SVC.fit(xTrain, yTrain)
+tfidf_logit_pipeline_GBoost.fit(xTrain, yTrain)
+tfidf_logit_pipeline_Mnb.fit(xTrain, yTrain)
 
 #counting predictions for models
 valid_pred = tfidf_logit_pipeline.predict(xTest)
-# valid_pred_RandomForestClassifier = tfidf_logit_pipeline_RandomForestClassifier.predict(xTest)
-# valid_pred_SVC = tfidf_logit_pipeline_SVC.predict(xTest)
-# valid_pred_GBoost = tfidf_logit_pipeline_GBoost.predict(xTest)
-# valid_pred_Mnb = tfidf_logit_pipeline_Mnb.predict(xTest)
+valid_pred_RandomForestClassifier = tfidf_logit_pipeline_RandomForestClassifier.predict(xTest)
+valid_pred_SVC = tfidf_logit_pipeline_SVC.predict(xTest)
+valid_pred_GBoost = tfidf_logit_pipeline_GBoost.predict(xTest)
+valid_pred_Mnb = tfidf_logit_pipeline_Mnb.predict(xTest)
 
 #printing accuracy of models
 print('Accuracy of Logistic Regression classifier on test set: {:.3f}'.format(accuracy_score(yTest, valid_pred)))
-# print('Accuracy of Random Forest Classifier classifier on test set: {:.3f}'.format(accuracy_score(yTest, valid_pred_RandomForestClassifier)))
-# print('Accuracy of SVC classifier on test set: {:.3f}'.format(accuracy_score(yTest, valid_pred_SVC)))
-# print('Accuracy of GBoost classifier on test set: {:.3f}'.format(accuracy_score(yTest, valid_pred_GBoost)))
-# print('Accuracy of Mnb classifier on test set: {:.3f}'.format(accuracy_score(yTest, valid_pred_Mnb)))
-
+print('Accuracy of Random Forest Classifier classifier on test set: {:.3f}'.format(accuracy_score(yTest, valid_pred_RandomForestClassifier)))
+print('Accuracy of SVC classifier on test set: {:.3f}'.format(accuracy_score(yTest, valid_pred_SVC)))
+print('Accuracy of GBoost classifier on test set: {:.3f}'.format(accuracy_score(yTest, valid_pred_GBoost)))
+print('Accuracy of Mnb classifier on test set: {:.3f}'.format(accuracy_score(yTest, valid_pred_Mnb)))
 
 # save the model to disk
 from joblib import dump
 dump(tfidf_logit_pipeline, './models/LinearRegression-model.joblib')
-# dump(tfidf_logit_pipeline_RandomForestClassifier, './models/RandomForestClassifier-model.joblib')
-# dump(tfidf_logit_pipeline_SVC, './models/SVC-model.joblib')
-# dump(tfidf_logit_pipeline_GBoost, './models/GBoost-model.joblib')
-# dump(tfidf_logit_pipeline_Mnb, './models/Mnb-model.joblib')
+dump(tfidf_logit_pipeline_RandomForestClassifier, './models/RandomForestClassifier-model.joblib')
+dump(tfidf_logit_pipeline_SVC, './models/SVC-model.joblib')
+dump(tfidf_logit_pipeline_GBoost, './models/GBoost-model.joblib')
+dump(tfidf_logit_pipeline_Mnb, './models/Mnb-model.joblib')
 
-
-# cm_lrc = confusion_matrix(yTest,valid_pred_SVC)
-# f, ax = plt.subplots(figsize =(5,5))
-# sns.heatmap(cm_lrc,annot = True,linewidths=0.5,linecolor="gray",fmt = ".0f",ax=ax)
-# plt.title('Confusion matrix of SVC')
-# plt.ylabel('Predicted label')
-# plt.xlabel('True label')
+cm_lrc = confusion_matrix(yTest,valid_pred_SVC)
+f, ax = plt.subplots(figsize =(5,5))
+sns.heatmap(cm_lrc,annot = True,linewidths=0.5,linecolor="gray",fmt = ".0f",ax=ax)
+plt.title('Confusion matrix of SVC')
+plt.ylabel('Predicted label')
+plt.xlabel('True label')
 
 #showing weights
 import eli5
