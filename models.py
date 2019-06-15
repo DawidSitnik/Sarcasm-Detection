@@ -14,9 +14,14 @@ from sklearn.svm import SVC
 from sklearn.naive_bayes import MultinomialNB
 
 #reading file
-file = 'headlines.json'
-data = pd.read_json(file, lines=True)
+file = 'headlines_clean.csv'
+data = pd.read_csv(file)
+data['headline'] = data['headline'].str.replace('\'', '')
+data['headline'] = data['headline'].str.replace(',', '')
+data['headline'] = data['headline'].str.replace('[', '')
+data['headline'] = data['headline'].str.replace(']', '')
 
+print(data)
 #basic informations
 print('\n')
 print(data.info())
